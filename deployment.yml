@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver-deployment
+  labels:
+    app.kubernetes.io/name: webserver
+spec:
+  serviceAccount: default
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: webserver
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: webserver
+    spec:
+      securityContext:
+        runAsUser: 101   # per the documentation of https://hub.docker.com/_/nginx
+        runAsGroup: 101
+      containers:
+      - name: webserver
+        image: default-route-openshift-image-registry.apps-crc.testing/about-me/nginx-static-webserver:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080

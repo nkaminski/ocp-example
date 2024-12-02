@@ -1,0 +1,8 @@
+FROM docker.io/library/nginx:mainline
+
+USER root
+COPY rootfs /
+RUN chown -R nginx:nginx /var/cache/nginx \
+                         /run
+
+USER nginx

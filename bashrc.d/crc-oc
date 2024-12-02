@@ -1,0 +1,3 @@
+# .bashrc addendum for OpenShift Container Platform Local using CodeReady Containers
+eval $(crc oc-env)
+alias kubectl=oc
